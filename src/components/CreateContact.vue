@@ -2,7 +2,8 @@
   <div>
     <h2>Add a contact</h2>
     <!-- TODO: Doesn't clear input text after submit -->
-    <form id="newContact" @submit="addContact(firstName, lastName, birthdate, address, city, state, phone, email, image)">
+    <!-- TODO: Make better form -->
+    <form class="formation" @submit="addContact(firstName, lastName, birthdate, address, city, state, phone, email, image)">
       <div class="form-group">
         <input v-model="firstName" placeholder="First Name">
         <!-- <div v-show="submitted && !firstname" class="invalid-feedback">First name is required</div> -->
@@ -79,6 +80,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.formation {
+  align-items: center;
+}
 input {
   margin: 5px;
   width: 20%;

@@ -1,26 +1,27 @@
 <template>
   <div>
-    <div>
-      <!-- Trying to do transition nav bar (For later)-->
-      <transition name="menu-popover">
-        <ul class="MenuPopover">
-          <li>Profile</li>
-          <li>Subscriptions</li>
-          <li>Log Out</li>
-        </ul>
-      </transition>
+    <div class="text-xs-center">
+      <v-toolbar color="rgb(250, 49, 65)" dark>
+        <v-menu open-on-hover bottom offset-y>
+          <!-- <v-btn slot="activator" color="rgb(250, 49, 65)" dark>Menu</v-btn> -->
+          <v-icon slot="activator" color="primary" dark>list</v-icon>
+          <v-list>
+            <v-list-tile @click="">
+              <v-list-tile-title>Edit Profile</v-list-tile-title>
+            </v-list-tile>
+            <v-list-tile @click="">
+              <v-list-tile-title>Subscription</v-list-tile-title>
+            </v-list-tile>
+            <v-list-tile @click="logout">
+              <v-list-tile-title>Log Out</v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
+        <v-toolbar-title>AdBook</v-toolbar-title>
+      </v-toolbar>
     </div>
-    <div class="row">
-      <h1 id="title">{{ msg }}</h1>
-      <!-- First column to add to contact list -->
-      <div class="column">
-        <CreateContact></CreateContact>
-      </div>
-      <!-- Second column to display all contacts in scrollable table with filteredData -->
-      <!-- Also create option to edit or delete contact from choosing from table -->
-      <div class="column">
-
-      </div>
+    <div class="formation">
+      <CreateContact></CreateContact>
     </div>
     <h2>Search</h2>
     <form>
@@ -47,7 +48,12 @@ export default {
     return {
       msg: 'Welcome to AdBook',
       contacts: [],
-      searchQuery: ''
+      searchQuery: '',
+      menuItems: [
+        { title: 'Edit Proile' },
+        { title: 'Subscription' },
+        { title: 'Log Out' }
+      ],
     }
   },
   firestore () {
@@ -67,30 +73,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-#title {
-  text-align: center;
-}
-.signOut {
-  float: right;
-}
-.MenuPopover {
-  position:absolute;
-  top:0;
-  right:0;
-}
-.menu-popover-enter,
-.menu-popover-leave-to {
-  opacity: 0;
-  transform: rotateY(50deg);
-}
-.menu-popover-enter-to,
-.menu-popover-leave {
-  opacity: 1;
-  transform: rotateY(0deg);
-}
-.menu-popover-enter-active,
-.menu-popover-leave-active {
-  transition: opacity, transform 200ms ease-out;
+.formation {
+  margin: auto;
+  width: 50%;
+  border: 3px;
+  padding: 10px;
+  align-items: center;
 }
 button {
   margin: 20px;
@@ -114,16 +102,5 @@ li {
 }
 a {
   color: #42b983;
-}
-.column {
-    float: left;
-    width: 50%;
-    text-align: center;
-}
-/* Clear floats after the columns */
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
 }
 </style>

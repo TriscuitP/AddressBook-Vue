@@ -3,7 +3,7 @@
     <img src="../assets/logo.png">
     <h1>{{ msg }}</h1>
     <h2>Login</h2>
-    <form>
+    <div class="formation">
       <div class="form-group">
         <input type="text" v-model="username" placeholder="Username">
       </div>
@@ -16,7 +16,7 @@
         <!-- <router-link to="/Home" tag="button">Login</router-link> -->
         <router-link to="/Register" tag="button">Register</router-link>
       </div>
-    </form>
+    </div>
   </div>
 </template>
 
@@ -54,6 +54,9 @@ export default {
 .login {
   margin-top: 40px;
   text-align: center;
+}
+.formation {
+  align-items: center;
 }
 input {
   margin: 10px 0;

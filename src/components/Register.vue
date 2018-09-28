@@ -4,7 +4,7 @@
     <h1>{{ msg }}</h1>
     <div>
       <h2>Register</h2>
-      <form>
+      <div class="formation">
         <div class="form-group">
           <input type="text" v-model="firstName" placeholder="First Name">
           <!-- <div v-show="submitted && !firstname" class="invalid-feedback">First name is required</div> -->
@@ -25,7 +25,7 @@
           <!-- <button type="submit">Register</button> -->
           <router-link to="/Login" tag="button" type="submit">Got to login</router-link>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </template>
@@ -67,6 +67,9 @@ export default {
 .register {
   margin-top: 60px;
   text-align: center;
+}
+.formation {
+  align-items: center;
 }
 input {
   margin: 10px 0;

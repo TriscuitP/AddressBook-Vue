@@ -1,87 +1,113 @@
 <template>
   <div>
+    <v-layout row>
+      <v-flex v-for="(c, idx) in contacts" :key="idx" xs4>
+        <v-card class="formation">
+          <v-img :src="c.image" height="300px">
+            <v-layout column fill-height>
+              <v-card-title>
+                <v-btn dark icon>
+                  <v-icon>chevron_left</v-icon>
+                </v-btn>
 
+                <v-spacer></v-spacer>
+                <!-- Maybe do a popup to make edit -->
+                <!-- Can also put delete button in edit card -->
+                <v-btn dark icon class="mr-3" v-on:click.native="edit">
+                  <v-icon>edit</v-icon>
+                </v-btn>
 
+                <v-btn dark icon>
+                  <v-icon>more_vert</v-icon>
+                </v-btn>
+              </v-card-title>
 
-    <!-- <div class="people">
-      <div class="container">
-        <template v-for="c in contacts">
-          <Contacts :person="c"></Contacts>
-        </template>
-      </div>
-    </div> -->
+              <v-spacer></v-spacer>
+
+              <v-card-title class="white--text pl-5 pt-5">
+                <div class="display-1 pl-5 pt-5">{{c.firstName}} {{c.lastName}}</div>
+              </v-card-title>
+            </v-layout>
+          </v-img>
+
+          <v-list two-line>
+            <v-list-tile @click="">
+              <v-list-tile-action>
+                <v-icon color="indigo">phone</v-icon>
+              </v-list-tile-action>
+
+              <v-list-tile-content>
+                <v-list-tile-title>{{c.phone}}</v-list-tile-title>
+                <v-list-tile-sub-title>Mobile</v-list-tile-sub-title>
+              </v-list-tile-content>
+
+              <v-list-tile-action>
+                <v-icon>chat</v-icon>
+              </v-list-tile-action>
+            </v-list-tile>
+
+            <v-divider inset></v-divider>
+
+            <v-list-tile @click="">
+              <v-list-tile-action>
+                <v-icon color="indigo">mail</v-icon>
+              </v-list-tile-action>
+
+              <v-list-tile-content>
+                <v-list-tile-title>{{c.email}}</v-list-tile-title>
+                <v-list-tile-sub-title>Personal</v-list-tile-sub-title>
+              </v-list-tile-content>
+            </v-list-tile>
+
+            <v-divider inset></v-divider>
+
+            <v-list-tile @click="">
+              <v-list-tile-action>
+                <v-icon color="indigo">location_on</v-icon>
+              </v-list-tile-action>
+
+              <v-list-tile-content>
+                <v-list-tile-title>{{c.address}}</v-list-tile-title>
+                <v-list-tile-sub-title>{{c.city}}, {{c.state}}</v-list-tile-sub-title>
+              </v-list-tile-content>
+            </v-list-tile>
+
+            <v-divider inset></v-divider>
+
+            <v-list-tile @click="">
+              <v-list-tile-action>
+                <v-icon color="indigo">cake</v-icon>
+              </v-list-tile-action>
+
+              <v-list-tile-content>
+                <v-list-tile-title>{{c.birthdate}}</v-list-tile-title>
+                <v-list-tile-sub-title>Birthdate</v-list-tile-sub-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list>
+        </v-card>
+      </v-flex>
+    </v-layout>
   </div>
 </template>
 
 <script>
-// https://vuejs.org/v2/examples/grid-component.html
-// https://github.com/spatie/vue-table-component
-// https://medium.com/@darrenjennings/data-driven-vue-js-53e84f16e28f
-// http://www.developerdrive.com/2017/07/creating-a-data-table-in-vue-js/
+// https://vuetifyjs.com/en/components/lists
 import { db } from '../main'
-import Contacts from './Contacts'
 
 export default {
   name: 'ContactList',
   props: {
     contacts: [],
-    filterKey: ''
-  },
-  components: {
-    Contacts
   },
   data() {
-    var sortOrders = {}
-    this.columns.forEach(function (key) {
-      sortOrders[key] = 1
-    })
     return {
-      sortKey: '',
-      sortOrders: sortOrders,
-      columns: [
-        'firstName',
-        'lastName',
-        'city',
-        'phone',
-        'email'
-      ]
-    }
-  },
-  computed: {
-    // Computed value as a derived value that will be automatically updated
-    // whenever one of the underlying values used to calculate it is updated
-    // TODO: Change to only filter to match columns list
-    filteredData() {
-      var sortKey = this.sortKey
-      var filterKey = this.filterKey && this.filterKey.toLowerCase()
-      var order = this.sortOrders[sortKey] || 1
-      var data = this.contacts
-      if (filterKey) {
-        data = data.filter(function (row) {
-          return Object.keys(row).some(function (key) {
-            return String(row[key]).toLowerCase().indexOf(filterKey) > -1
-          })
-        })
-      }
-      if (sortKey) {
-        data = data.slice().sort(function (a, b) {
-          a = a[sortKey]
-          b = b[sortKey]
-          return (a === b ? 0 : a > b ? 1 : -1) * order
-        })
-      }
-      return data
-    }
-  },
-  filters: {
-    capitalize(str) {
-      return str.charAt(0).toUpperCase() + str.slice(1)
+
     }
   },
   methods: {
-    sortBy(key) {
-      this.sortKey = key
-      this.sortOrders[key] = this.sortOrders[key] * -1
+    edit() {
+
     }
   }
 }
@@ -89,9 +115,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.people {
-    background: #F7F8FB;
-    padding: 30px 0;
+.formation {
+    padding: 10px;
 }
 h1, h2 {
   font-weight: normal;
