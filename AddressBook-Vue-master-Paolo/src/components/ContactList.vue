@@ -13,8 +13,11 @@
                 <v-spacer></v-spacer>
                 <!-- Maybe do a popup to make edit -->
                 <!-- Can also put delete button in edit card -->
-                <v-btn dark icon class="mr-3" v-on:click.native="edit">
+                <v-btn dark icon class="mr-3" v-on:click="editContact()">
                   <v-icon>edit</v-icon>
+                </v-btn>
+                 <v-btn dark icon v-on:click="deleteContact(c.id)">
+                  <v-icon>delete</v-icon>
                 </v-btn>
 
                 <v-btn dark icon>
@@ -106,8 +109,12 @@ export default {
     }
   },
   methods: {
-    edit() {
+    editContact() {
 
+    },
+    deleteContact(id) {
+
+      db.collection('contacts').doc(id).delete()
     }
   }
 }
