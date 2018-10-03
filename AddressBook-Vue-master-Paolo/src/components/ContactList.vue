@@ -12,8 +12,7 @@
 
                 <v-spacer></v-spacer>
                 <!-- Maybe do a popup to make edit -->
-                <!-- Can also put delete button in edit card -->
-                <v-btn dark icon class="mr-3" v-on:click="editContact()">
+                <v-btn dark icon class="mr-3" >
                   <v-icon>edit</v-icon>
                 </v-btn>
                  <v-btn dark icon v-on:click="deleteContact(c.id)">
@@ -34,10 +33,17 @@
           </v-img>
 
           <v-list two-line>
-            <v-list-tile @click="">
+          
+        <input v-model="data" placeholder="edit contact">
+        <v-bind c.phone:="phone">
+        </v-bind>
+        <v-divider inset></v-divider>
+
+            <v-list-tile>
               <v-list-tile-action>
-                <v-icon color="indigo">phone</v-icon>
+                <v-icon color="indigo" @click="editContactPhone(c.firstName, c.lastName, c.birthdate, c.address, c.city, c.state, data, c.mail, c.image, c.id)">phone</v-icon>
               </v-list-tile-action>
+            
 
               <v-list-tile-content>
                 <v-list-tile-title>{{c.phone}}</v-list-tile-title>
@@ -53,7 +59,7 @@
 
             <v-list-tile @click="">
               <v-list-tile-action>
-                <v-icon color="indigo">mail</v-icon>
+                <v-icon color="indigo" @click="editContactEmail(c.firstName, c.lastName, c.birthdate, c.address, c.city, c.state, c.phone, data, c.image, c.id)">mail</v-icon>
               </v-list-tile-action>
 
               <v-list-tile-content>
@@ -66,7 +72,7 @@
 
             <v-list-tile @click="">
               <v-list-tile-action>
-                <v-icon color="indigo">location_on</v-icon>
+                <v-icon color="indigo" @click="editContactAddress(c.firstName, c.lastName, c.birthdate, data, c.city, c.state, c.phone, c.mail, c.image, c.id)">location_on</v-icon>
               </v-list-tile-action>
 
               <v-list-tile-content>
@@ -79,7 +85,7 @@
 
             <v-list-tile @click="">
               <v-list-tile-action>
-                <v-icon color="indigo">cake</v-icon>
+                <v-icon color="indigo" @click="editContactBirthday(c.firstName, c.lastName, data, c.address, c.city, c.state, c.phone, c.mail, c.image, c.id)">cake</v-icon>
               </v-list-tile-action>
 
               <v-list-tile-content>
@@ -105,15 +111,22 @@ export default {
   },
   data() {
     return {
-
     }
   },
   methods: {
-    editContact() {
-
+    editContactPhone(firstName, lastName, birthdate, address, city, state, phone, email, image, id) {
+      db.collection('contacts').doc(id).set({phone: phone}, {merge: true})
+    },
+    editContactEmail(firstName, lastName, birthdate, address, city, state, phone, email, image, id) {
+      db.collection('contacts').doc(id).set({email: email}, {merge: true})
+    },
+    editContactAddress(firstName, lastName, birthdate, address, city, state, phone, email, image, id) {
+      db.collection('contacts').doc(id).set({address: address}, {merge: true})
+    },
+    editContactBirthday(firstName, lastName, birthdate, address, city, state, phone, email, image, id) {
+      db.collection('contacts').doc(id).set({birthdate: birthdate}, {merge: true})
     },
     deleteContact(id) {
-
       db.collection('contacts').doc(id).delete()
     }
   }
