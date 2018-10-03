@@ -12,8 +12,9 @@
 
                 <v-spacer></v-spacer>
                 <!-- Maybe do a popup to make edit -->
-                <v-btn dark icon class="mr-3" >
+                <v-btn dark icon class="mr-3">
                   <v-icon>edit</v-icon>
+
                 </v-btn>
                  <v-btn dark icon v-on:click="deleteContact(c.id)">
                   <v-icon>delete</v-icon>
@@ -39,6 +40,7 @@
         </v-bind>
         <v-divider inset></v-divider>
 
+            <!-- to edit field, type into input bar and press icon you want to change -->
             <v-list-tile>
               <v-list-tile-action>
                 <v-icon color="indigo" @click="editContactPhone(c.firstName, c.lastName, c.birthdate, c.address, c.city, c.state, data, c.mail, c.image, c.id)">phone</v-icon>
